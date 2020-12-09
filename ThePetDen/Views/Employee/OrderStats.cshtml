@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "OrderStats";
+}
+
+    <br />
+<h2 class="text-center">Order Statistics for each category</h2>
+<p class="text-center"><b>***auto updated when orders are made***</b></p>
+<br />
+<script src="~/Scripts/Chart.js"></script>
+<div class="chart-container">
+    <canvas id="myChart"></canvas>
+</div>
+<script>
+
+    var xaxis = @Html.Raw(Json.Encode(ViewBag.XAXIS));
+    var yaxis = @Html.Raw(Json.Encode(ViewBag.YAXIS));
+
+    var data = {
+
+        labels: xaxis,
+            datasets: [{
+                label: ' ',
+                data: yaxis,
+                backgroundColor: ["#5e92f3", "#52bf57", "#b71c1c", "#6a1b9a"],
+                borderWidth: 2, 
+                hoverBackgroundColor: ["#4a70b5", "#45a149", "#7f0000", "#38006b"]
+            }]
+    };
+
+    var options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+
+            display: false
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 1
+                },
+                stacked: true,
+                gridLines: {
+                    display: true,
+                    color: "rgba(255,99,132,0.2)"
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: "Number of orders",
+                    fontSize: 16,
+                    fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
+                }
+            }],
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: "Product Categories",
+                    fontSize: 16,
+                    fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
+                },
+                ticks: {
+                    fontSize: 14
+                }
+            }]
+          
+        }
+    };
+
+    var ctx = document.getElementById('myChart');
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options
+});
+
+</script>
+
+<br />
+<br />

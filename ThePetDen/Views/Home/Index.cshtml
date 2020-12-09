@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<br />
+<h1 class="h1 text-center">Welcome to The Pet Den</h1>
+<br />
+
+<div class="container-fluid text-center">
+
+    <hr />
+
+    <br />
+
+    <h3>Choose a pet below to view products for</h3>
+
+    <br />
+
+    <div class="row">
+
+        <div class="col-sm-6">
+
+
+                <div class="imgContent">
+                    <div class="content-overlay"></div>
+                    <img class="content-image img-fluid rounded mb-3" src="~/Content/images/dogs.jpg" alt="Dogs">
+                    <div class="content-details fadeIn-top">
+                        @Html.ActionLink("Browse all products", "Index", "Products", new { @pet = "Dogs"}, new { @class = "btn btn-primary"})
+                    </div>
+                </div>
+
+
+        </div>
+
+        <div class="col-sm-6 imageContainer">
+
+            <div class="imgContent">
+                <div class="content-overlay"></div>
+                <img class="content-image img-fluid rounded mb-3" src="~/Content/images/cats.jpg" alt="Cats">
+                <div class="content-details fadeIn-top">
+                    @Html.ActionLink("Browse all products", "Index", "Products", new { @pet = "Cats" }, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

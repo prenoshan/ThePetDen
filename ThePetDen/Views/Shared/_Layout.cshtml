@@ -1,0 +1,117 @@
+﻿@using System.Text
+@using System.Web
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md bg-light navbar-light">
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">The Pet Den</a>
+
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+
+            @{
+
+                string userRole = "";
+
+                if (Request.Cookies["user"] != null && Request.Cookies["userRole"] != null)
+                {
+                    var bytes = Convert.FromBase64String(Request.Cookies["userRole"].Value);
+
+                    var output = MachineKey.Unprotect(bytes, "userRoleProtected");
+
+                    userRole = Encoding.UTF8.GetString(output);
+
+                    if (userRole == "Customer")
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("View All Products", "Index", "Products", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Your Cart", "Index", "Cart", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Your Orders", "Index", "Orders", null, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    }
+
+                    else if(userRole == "Employee")
+                    {
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+            </li>
+
+            <li class="nav-item">
+                @Html.ActionLink("View All Products", "Index", "Products", null, new { @class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Order Stats", "OrderStats", "Employee", null, new { @class = "nav-link" })
+            </li>
+        </ul>
+
+                    }
+
+                }
+
+            }
+
+            @{
+                if (Request.Cookies["user"] == null && Request.Cookies["userRole"] == null)
+                {
+
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            @Html.ActionLink("Login", "Login", "Auth", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Register", "Register", "Auth", null, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+
+                }
+
+                else
+                {
+
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <span style="color: rgba(0, 0, 0, 0.5); display: block; padding: 0.5rem 1rem; padding-left: 0; padding-right: 0;">Welcome @Request.Cookies["usersname"].Value! (@userRole)</span>
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Log Out", "LogOut", "Auth", null, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                }
+            }
+
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

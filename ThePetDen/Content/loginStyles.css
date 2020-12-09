@@ -1,0 +1,109 @@
+﻿/*Login Styles*/
+
+.loginLeftPanel,
+.loginRightPanel {
+    height: 100vh;
+    width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+
+    .loginLeftPanel,
+    .loginRightPanel {
+        height: 100vh;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+
+    .logoImg {
+        width: 55%;
+    }
+}
+
+@media screen and (max-width: 448px) {
+
+    input[type=text],
+    input[type=password] {
+        width: inherit !important;
+    }
+
+    input[type=submit] {
+        width: 125px !important;
+    }
+}
+
+@media screen and (max-width: 991px) {
+
+    .loginForm {
+        width: 90%;
+        padding: 50px;
+        top: 100% !important;
+    }
+}
+
+@media screen and (max-width: 425px) {
+
+    .logoImg {
+        width: 75%;
+    }
+}
+
+.loginLeftPanel {
+    background: url('../Uploads/loginBackground.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.logoImg {
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loginRightPanel,
+.loginForm {
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input[type=text],
+input[type=password] {
+    margin: 0 auto;
+    width: 300px;
+}
+
+.btnLogin {
+    width: 200px;
+    padding: 10px !important;
+    background-image: linear-gradient(to left, #4389A2, #5C258D);
+    border: 0px transparent !important;
+    color: #ffffff !important;
+    font-size: 22px !important;
+    position: relative;
+}
+
+    .btnLogin:hover {
+        background-image: linear-gradient(to left, #336b80, #512379);
+    }
+
+    .btnLogin:focus {
+        box-shadow: 0 0 0 0.2rem rgba(0, 10, 255, 0.25) !important;
+    }
+
+.validationSummary {
+    display: inline-block;
+    text-align: left;
+    background: #f44336;
+    border-radius: 10px;
+    padding: 12px;
+    color: #ffffff;
+}

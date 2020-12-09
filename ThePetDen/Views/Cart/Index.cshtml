@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ThePetDen.Models.Products>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+
+@using (Html.BeginForm("CreateOrder", "Cart", FormMethod.Post))
+{
+
+<div class="container-fluid form-inline">
+    <h2 class="text-center">Your Cart</h2>
+    <input type="submit" value="Place Order" class="btn btn-primary ml-auto" style="padding: 10px;" />
+</div>
+
+}
+
+
+<br />
+
+<div class="container-fluid">
+
+    <table class="table table-responsive-lg text-center">
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td class="align-middle">
+                    <img class="img-thumbnail cartImgFix" src="~/Uploads/@item.URL" alt="@item.URL" style="width: 75%;" />
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td class="align-middle">
+                    @using (Html.BeginForm("RemoveFromCart", "Cart", FormMethod.Post))
+                    {
+
+                        @Html.Hidden("prodID", item.Id);
+
+                        <input type="submit" value="Remove" class="btn btn-danger" />
+                    }
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+</div>

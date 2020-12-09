@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ThePetDen.Models.Products>
+
+@{
+    ViewBag.Title = "OrderDetails";
+}
+
+    <div class="container-fluid">
+
+        <br />
+        <h2 class="text-center">Order Details</h2>
+        <hr />
+        <br />
+        @foreach (var item in Model)
+        {
+
+    <div class="text-center" style="border: 2px solid; border-radius: 10px; width: 75%; margin: 0 auto; background-color: #495057; color: #ffffff;">
+        <br />
+        <img src="~/Uploads/@item.URL" class="img-thumbnail" style="width: 300px;" alt="@item.URL" />
+        <br />
+        <br />
+        <h3>@item.Name</h3>
+        <p>@item.Description</p>
+        <p>R @item.Price</p>
+
+    </div>
+    <br />
+        }
+
+    </div>

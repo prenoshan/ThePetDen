@@ -1,0 +1,185 @@
+﻿@model IEnumerable<ThePetDen.Models.Products>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@{
+
+    var cols = 2;
+    var totalCount = Model.Count();
+    var counter = 1;
+
+}
+
+    <br />
+
+    <div class="container-fluid justify-content-center">
+
+        @if (TempData["prodExists"] != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Info</strong> @TempData["prodExists"]
+            </div>
+        }
+
+        @if (TempData["itemAdded"] != null)
+        {
+    <div class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success</strong> @TempData["itemAdded"] 
+    <br />
+        @Html.ActionLink("Go to cart", "Index", "Cart")
+    </div>
+        }
+
+        <div class="form-inline justify-content-center">
+
+            @using (Html.BeginForm("Index", "Products", FormMethod.Post))
+            {
+                @Html.TextBox("productSearch", null, new { @placeholder = "Search", @class = "form-control mb-2 mr-sm-2" })
+
+                @Html.DropDownList("petCat", (IEnumerable<SelectListItem>)ViewData["PetCategories"], null, new { @class = "form-control mb-2 mr-sm-2" })
+
+                @Html.DropDownList("productCat", (IEnumerable<SelectListItem>)ViewData["productCategories"], null, new { @class = "form-control mb-2 mr-sm-2" })
+
+                <input type="submit" class="btn btn-primary mb-2 mr-sm-2" value="Search" />
+
+            }
+
+        </div>
+
+        <br />
+
+        @if (Model.Count() == 0)
+        {
+            <h3 class="text-center">No products were found</h3>
+        }
+
+        @foreach (var item in Model)
+        {
+
+            if (counter % cols == 1)
+            {
+                @:<div class="row fix_position_mainRow" style="padding-left: 30px; padding-right: 30px; margin-bottom: 1rem;">
+                }
+
+                if (counter % 2 == 0)
+                {
+
+                    <div class="col-md-6 fix_position" style="border: 1px solid; margin-left: 15px;">
+
+                        <div class="row align-items-center">
+
+                            <div class="col-md-6 text-center" style="padding: 10px;">
+
+                                <img class="img-thumbnail" src="~/Uploads/@item.URL" alt="@item.URL" />
+
+                            </div>
+
+                            <div class="col-md-6 text-center">
+
+                                <br />
+
+                                <h5>@item.Name</h5>
+
+                                <br />
+
+                                <p>Description:<br />@item.Description</p>
+
+                                <p>Price: R @item.Price</p>
+
+                                @using (Html.BeginForm("AddToCart", "Products", FormMethod.Post))
+                                {
+
+                                    @Html.Hidden("prodID", item.Id);
+
+                                    <br />
+
+                                    <input type="submit" value="Add to cart" class="btn btn-primary" />
+
+                                }
+
+                                <br />
+
+                                <br />
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                }
+
+                else
+                {
+
+                    <div class="col-md-6 fix_position" style="border: 1px solid; margin-left: -15px;">
+
+                        <div class="row align-items-center">
+
+                            <div class="col-md-6 text-center" style="padding: 10px;">
+
+                                <img class="img-thumbnail" src="~/Uploads/@item.URL" alt="@item.URL" />
+
+                            </div>
+
+                            <div class="col-md-6 text-center">
+
+                                <br />
+
+                                <h5>@item.Name</h5>
+
+                                <br />
+
+                                <p>Description:<br />@item.Description</p>
+
+                                <p>Price: R @item.Price</p>
+
+                                @using (Html.BeginForm("AddToCart", "Products", FormMethod.Post))
+                                {
+
+                                    @Html.Hidden("prodID", item.Id);
+
+                                    <br />
+
+                                    <input type="submit" value="Add to cart" class="btn btn-primary" />
+
+                                }
+
+                                <br />
+
+                                <br />
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                }
+
+                if ((counter % cols == 0) || ((counter) == totalCount))
+                {
+
+                @:</div>
+
+
+
+
+
+
+
+
+            }
+
+            counter++;
+
+        }
+
+    </div>
+
+
