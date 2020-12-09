@@ -1,5 +1,5 @@
 ### Description:
-An ecommerce web application based around pet products
+A C# MVC .NET Framework ecommerce web application based around pet products
 
 ### Features for customers:
 
